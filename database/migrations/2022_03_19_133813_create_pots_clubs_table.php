@@ -19,6 +19,9 @@ class CreatePotsClubsTable extends Migration
             $table->foreignIdFor(\App\Models\Club::class);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('pots_id')->references('id')->on('pots');
+            $table->foreign('club_id')->references('id')->on('clubs');
         });
     }
 

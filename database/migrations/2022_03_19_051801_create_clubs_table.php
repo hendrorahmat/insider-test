@@ -18,8 +18,11 @@ class CreateClubsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('strength')->default(0);
+            $table->foreignIdFor(\App\Models\Nation::class);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('nation_id')->references('id')->on('nations');
         });
     }
 

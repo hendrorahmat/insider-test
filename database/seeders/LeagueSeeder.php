@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\League;
+use App\Models\Nation;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,8 @@ class LeagueSeeder extends Seeder
             'Danish Superliga',
             'Champion League'
         ];
+
+        Nation::factory()->create();
 
         foreach ($leagues as $index => $league) {
             League::create([

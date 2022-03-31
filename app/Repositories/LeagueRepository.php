@@ -17,5 +17,5 @@ interface LeagueRepository
     /**
      * @return Model
      */
-    public function findChampionLeagueId(): Model;
+    public function findChampionLeague(): Model;
 }

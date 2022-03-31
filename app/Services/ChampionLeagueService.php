@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Entities\GroupChampionLeague;
+use App\Models\League;
 use App\Repositories\GroupLeagueRepository;
 use App\Repositories\GroupRepository;
 use App\Repositories\LeagueRepository;
@@ -73,7 +75,7 @@ class ChampionLeagueService
         }
 
         $groups = $this->groupRepository->all();
-        if ($this->groupLeagueRepository->count() !== 32) {
+        if ($this->groupLeagueRepository->count() !== League::MAX_CHAMPION_LEAGUE_GROUP_PARTICIPANT) {
             foreach ($groups as $group) {
                 foreach ($pots as $pot) {
                     $this->findGroupLeague($pot['id'], $group->id);
@@ -85,7 +87,7 @@ class ChampionLeagueService
     private function findGroupLeague(int $potsId, int $groupId): void
     {
         $potsClub = $this->potsClubRepository->findClubRandomByPotsId($potsId);
-        $championLeagueId = $this->leagueRepository->findChampionLeagueId()->id;
+        $championLeagueId = $this->leagueRepository->findChampionLeague()->id;
         $isClubAlreadyAssigned = $this->groupLeagueRepository->findOneWhere([
             'league_id' => $championLeagueId,
             'club_id' => $potsClub['club_id']
@@ -102,5 +104,21 @@ class ChampionLeagueService
         } else {
             $this->findGroupLeague($potsId, $groupId);
         }
+    }
+
+    /**
+     * @return GroupChampionLeague[]
+     */
+    public function getClubsChampionLeague(): array
+    {
+        $groups = $this->groupRepository->all();
+
+        /** @var GroupChampionLeague[] $groupChampionLeagues */
+        $groupChampionLeagues = [];
+        foreach ($groups as $group) {
+            $groupChampionLeague = $this->groupLeagueRepository->getClubsGroupedByGroupId($group->id);
+            $groupChampionLeagues[] = $groupChampionLeague;
+        }
+        return $groupChampionLeagues;
     }
 }

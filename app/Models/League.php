@@ -11,7 +11,8 @@ class League extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const CHAMPION_LEAGuE_NAME = 'Champion League';
+    const CHAMPION_LEAGUE_NAME = 'Champion League';
+    const MAX_CHAMPION_LEAGUE_GROUP_PARTICIPANT = 32;
 
     protected $fillable = [
         'ranking_points',

@@ -24,4 +24,19 @@ class GroupLeague extends Model
         'goal_difference',
         'session_id'
     ];
+
+    public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+    public function league(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(League::class);
+    }
+
+    public function club(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Club::class);
+    }
 }

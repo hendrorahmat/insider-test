@@ -13,7 +13,7 @@ class CreateFixtureRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class CreateFixtureRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'group_id' => 'required|exists:groups,id'
         ];
     }
 }

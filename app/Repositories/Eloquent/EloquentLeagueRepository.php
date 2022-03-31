@@ -25,12 +25,12 @@ class EloquentLeagueRepository extends BaseRepository implements \App\Repositori
         return $this->getModel()
             ->with('leagueClubsActive.club')
             ->whereHas('leagueClubsActive')
-            ->where('name', '!=', League::CHAMPION_LEAGuE_NAME)
+            ->where('name', '!=', League::CHAMPION_LEAGUE_NAME)
             ->get();
     }
 
-    public function findChampionLeagueId(): Model
+    public function findChampionLeague(): Model
     {
-        return $this->getModel()->where('name', League::CHAMPION_LEAGuE_NAME)->first();
+        return $this->getModel()->where('name', League::CHAMPION_LEAGUE_NAME)->first();
     }
 }

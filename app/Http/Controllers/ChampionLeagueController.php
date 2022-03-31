@@ -20,6 +20,8 @@ class ChampionLeagueController extends Controller
     public function index()
     {
         $this->championLeagueService->generateChampionLeague();
-        return view('champions-league');
+        $datas = $this->championLeagueService->getClubsChampionLeague();
+
+        return view('champions-league', compact('datas'));
     }
 }

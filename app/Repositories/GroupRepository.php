@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-interface GroupRepository extends EloquentRepositoryInterface
+interface GroupRepository extends BaseRepositoryInterface
 {
 
 }

@@ -15,10 +15,15 @@ class CreateMatchHistoriesTable extends Migration
     {
         Schema::create('match_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Match::class);
+            $table->foreignId('match_id');
             $table->integer('points')->default(0);
-            $table->boolean('is_winner')->default(0);
+            $table->enum('type', ['win', 'loose', 'draw']);
+            $table->integer('goal_for')->default(0);
+            $table->integer('goal_against')->default(0);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('match_id')->references('id')->on('matches');
         });
     }
 

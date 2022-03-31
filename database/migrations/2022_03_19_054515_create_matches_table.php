@@ -22,6 +22,9 @@ class CreateMatchesTable extends Migration
             $table->enum('type', ['home', 'away']);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('league_id')->references('id')->on('leagues');
+            $table->foreign('club_id')->references('id')->on('clubs');
         });
     }
 

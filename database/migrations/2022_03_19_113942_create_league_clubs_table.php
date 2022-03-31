@@ -28,6 +28,9 @@ class CreateLeagueClubsTable extends Migration
             $table->integer('goal_difference')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('league_id')->references('id')->on('leagues');
+            $table->foreign('club_id')->references('id')->on('clubs');
         });
     }
 

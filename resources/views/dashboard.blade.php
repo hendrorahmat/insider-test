@@ -17,6 +17,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>No</th>
                             <th scope="col">Teams</th>
                             <th scope="col">PTS</th>
                             <th scope="col">P</th>
@@ -29,6 +30,7 @@
                         <tbody>
                         @foreach($data->leagueClubsActive as $leagueClub)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $leagueClub->club->name }}</td>
                                 <td>{{ $leagueClub->total_points }}</td>
                                 <td>{{ $leagueClub->match }}</td>

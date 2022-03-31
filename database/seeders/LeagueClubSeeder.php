@@ -25,7 +25,13 @@ class LeagueClubSeeder extends Seeder
         foreach ($leagues as $league) {
             $clubs = Club::offset(($currentPage - 1) * $totalClub)->limit($totalClub)->get();
             foreach ($clubs as $club) {
-                $totalWin = random_int(1, $totalMatchPerClub - 3);
+                $data = config('league.champion_league');
+
+                if (in_array($club->name, $data)) {
+                    $totalWin = random_int(35, 38);
+                } else {
+                    $totalWin = random_int(1, 35 - 3);
+                }
 
                 $restOfMatch = $totalMatchPerClub - $totalWin;
                 $totalLoose = $restOfMatch - (round($restOfMatch / 2));

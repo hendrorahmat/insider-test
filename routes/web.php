@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
-Route::get('/champion-league', [\App\Http\Controllers\ChampionLeagueController::class, 'index'])
-    ->name('champion.league.index');
+Route::group(['prefix' => 'champion-league'], function () {
+    Route::get('/', [\App\Http\Controllers\ChampionLeagueController::class, 'index'])
+        ->name('champion.league.index');
+    Route::resources([
+        'groups' => \App\Http\Controllers\GroupController::class,
+        'fixtures' => \App\Http\Controllers\FixtureController::class,
+        'groups/{groupId}/simulation' => \App\Http\Controllers\GroupSimulationController::class,
+        'play-match' => \App\Http\Controllers\PlayMatchController::class,
+        'groups/{groupId}/reset-match' => \App\Http\Controllers\ResetMatchController::class
+    ]);
+});

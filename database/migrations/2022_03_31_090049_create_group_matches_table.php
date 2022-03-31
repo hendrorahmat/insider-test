@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaguesTable extends Migration
+class CreateGroupMatchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateLeaguesTable extends Migration
      */
     public function up()
     {
-        Schema::create('leagues', function (Blueprint $table) {
+        Schema::create('group_matches', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('ranking_points');
-            $table->foreignIdFor(\App\Models\Nation::class);
+            $table->foreignIdFor(\App\Models\Group::class);
+            $table->unsignedBigInteger('match_id');
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('match_id')->references('id')->on('matches');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateLeaguesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leagues');
+        Schema::dropIfExists('group_matches');
     }
 }
